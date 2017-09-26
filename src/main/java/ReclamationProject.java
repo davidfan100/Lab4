@@ -8,19 +8,41 @@
  * 5. Remove unnecessary comments as appropriate
  */
 
-public class ReclamationProject
-{
-    static String doit(String a,String b){
-        if (a.length() > b.length()){
-            String c = a; // TODO: set c to a
-            a=b; b=c;}
-        String r = (a.equals(b)) ? "" : ""; // I love the ternary operator!
+/*
+ *
+ *
+ */
+public class ReclamationProject {
+    /*
+     *
+     */
+    static String doit(String firstStr, String secondStr){
+        if (firstStr.length() > secondStr.length()) {
+            String temp = firstStr;
+            firstStr = secondStr;
+            secondStr = temp;
+        }
+        String maxStr = "";
         /*
-         * For loop with i
+         * loop over all the characters in firstStr
          */
-        for (int i = 0; i < a.length(); i++) { for (int j = a.length() - i; j > 0; j--) {
-                for (int k = 0; k < b.length()- j; k++) {
-                    r = (a.regionMatches(i, b, k, j) && j >r.length()) ? a.substring(i,i + j) : r; // Do it!
-                        }} // Ah yeah
-        } return r; }
+        for (int begin = 0; begin < firstStr.length(); begin++) {
+            /*
+             * loop over all the characters in secondStr, but start from the end
+             */
+            for (int end = firstStr.length() - begin; end > 0; end--) {
+                /*
+                 * Compare all possible substrings within the given begin and end
+                 */
+                for (int possibleSubStr = 0; possibleSubStr < secondStr.length() - end;
+                        possibleSubStr++) {
+                    if (firstStr.regionMatches(begin, secondStr, possibleSubStr, end)
+                            && end > maxStr.length()) {
+                        maxStr = firstStr.substring(begin, begin + end);
+                    }
+                }
+            }
+        }
+        return maxStr;
+    }
 }
